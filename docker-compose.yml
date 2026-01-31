@@ -1,0 +1,27 @@
+services:
+  web:
+    build: ./app
+    container_name: smart-home-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-dev-only-change-in-production}
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-True}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,0.0.0.0}
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: smart-home-redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
