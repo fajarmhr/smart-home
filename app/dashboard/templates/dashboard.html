@@ -37,20 +37,48 @@
       </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- System Categories -->
     <div class="sidebar-section">
-      <div class="sidebar-section-label">Navigation</div>
-      <div class="sidebar-item active" onclick="setGroup('room'); closeMobileSidebar();">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-        <span>All Devices</span>
+      <div class="sidebar-section-label">Systems</div>
+      <div class="sidebar-item {% if current_category == 'all' %}active{% endif %}" onclick="filterCategory('all')">
+        <span class="category-icon">📊</span>
+        <span>All Systems</span>
       </div>
+      {% for cat_key, cat in categories.items %}
+      <div class="sidebar-item {% if current_category == cat_key %}active{% endif %}" onclick="filterCategory('{{ cat_key }}')">
+        <span class="category-icon">{{ cat.icon }}</span>
+        <span>{{ cat.name }}</span>
+        <span class="sidebar-badge">{{ cat.rooms|length }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Quick Links -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Quick Links</div>
+      <a href="http://localhost:3000" target="_blank" class="sidebar-item sidebar-link">
+        <span class="category-icon">📈</span>
+        <span>Grafana</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <a href="/admin/" target="_blank" class="sidebar-item sidebar-link">
+        <span class="category-icon">⚙️</span>
+        <span>Admin</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
     </div>
 
     <!-- Rooms -->
     <div class="sidebar-section">
       <div class="sidebar-section-label">Rooms</div>
       <div id="sidebar-rooms">
-        <!-- Populated dynamically -->
+        {% for room in rooms %}
+        <div class="sidebar-item room-item" data-room="{{ room.name }}" data-category="{{ room.category }}" onclick="filterRoom('{{ room.name }}'); closeMobileSidebar();">
+          <span class="category-icon">{{ room.icon }}</span>
+          <span>{{ room.name }}</span>
+          <span class="sidebar-badge">{{ room.devices.count }}</span>
+        </div>
+        {% endfor %}
       </div>
     </div>
 
@@ -77,8 +105,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
           </button>
           <div class="header-left">
-            <div id="header-greeting" class="header-greeting">Good Evening, My dear {{ request.user.username }}.</div>
-            <div class="header-subtitle">Here's your home overview</div>
+            <div id="header-greeting" class="header-greeting">Good Evening, {{ request.user.username }}.</div>
+            <div class="header-subtitle" id="header-subtitle">Here's your home overview</div>
           </div>
         </div>
 
@@ -138,6 +166,7 @@
           <button class="group-tab active" data-mode="room" onclick="setGroup('room')">By Room</button>
           <button class="group-tab" data-mode="type" onclick="setGroup('type')">By Type</button>
         </div>
+        <div class="filter-info" id="filter-info"></div>
       </div>
 
       <!-- Device Groups Container -->
@@ -155,6 +184,17 @@
   </main>
 </div>
 
+<script>
+  // Pass current category to JS
+  window.currentCategory = "{{ current_category }}";
+  window.categoryNames = {
+    "all": "All Systems",
+    "home": "Home",
+    "pv": "Solar PV",
+    "hydro": "Hydroponics",
+    "fish": "Fishery"
+  };
+</script>
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
 
 </body>

@@ -28,3 +28,13 @@ Thumbs.db
 
 # Docker
 *.pid
+
+# Claude Code
+.claude/
+
+# Secrets
+*.key
+*.pem
+*.crt
+*.env.local
+*.env.production

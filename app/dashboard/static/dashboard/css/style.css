@@ -302,18 +302,27 @@ body {
 /* --- Mobile sidebar overlay --- */
 .sidebar-overlay {
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 40;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-.sidebar-overlay.active {
-  display: block;
-  opacity: 1;
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 45;
+    pointer-events: none;
+    transition: background 0.3s ease;
+  }
+
+  .sidebar-overlay.active {
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    backdrop-filter: blur(2px);
+  }
 }
 
 /* --- Main Content --- */
@@ -563,6 +572,7 @@ body {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-top: 24px;
   margin-bottom: 16px;
   display: flex;
   align-items: center;
@@ -677,9 +687,167 @@ body {
   color: #9333ea;
 }
 
+.device-icon-wrap.camera {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.device-icon-wrap.sensor-temp {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.device-icon-wrap.sensor-humidity {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+.device-icon-wrap.switch {
+  background: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+}
+
+.device-icon-wrap.valve {
+  background: rgba(20, 184, 166, 0.15);
+  color: #14b8a6;
+}
+
+.device-icon-wrap.motor {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
 .device-icon-wrap.default {
   background: var(--accent-glow);
   color: var(--accent);
+}
+
+/* === Solar PV Icons === */
+.device-icon-wrap.pv-voltage {
+  background: rgba(251, 191, 36, 0.15);
+  color: #f59e0b;
+}
+
+.device-icon-wrap.pv-current {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+.device-icon-wrap.pv-power {
+  background: rgba(252, 211, 77, 0.15);
+  color: #fbbf24;
+}
+
+.device-icon-wrap.pv-temp {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.device-icon-wrap.battery {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.device-icon-wrap.battery-soc {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.device-icon-wrap.inverter {
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+}
+
+/* === Hydroponics Icons === */
+.device-icon-wrap.hydro-ph {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+}
+
+.device-icon-wrap.hydro-ec {
+  background: rgba(236, 72, 153, 0.15);
+  color: #ec4899;
+}
+
+.device-icon-wrap.hydro-temp {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.device-icon-wrap.hydro-level {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+.device-icon-wrap.hydro-flow {
+  background: rgba(14, 165, 233, 0.15);
+  color: #0ea5e9;
+}
+
+.device-icon-wrap.hydro-light {
+  background: rgba(132, 204, 22, 0.15);
+  color: #84cc16;
+}
+
+.device-icon-wrap.hydro-humidity {
+  background: rgba(34, 211, 238, 0.15);
+  color: #22d3ee;
+}
+
+.device-icon-wrap.hydro-pump {
+  background: rgba(20, 184, 166, 0.15);
+  color: #14b8a6;
+}
+
+/* === Fishery Icons === */
+.device-icon-wrap.fish-temp {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.device-icon-wrap.fish-ph {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.device-icon-wrap.fish-do {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.device-icon-wrap.fish-chemical {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.device-icon-wrap.fish-turbidity {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
+
+.device-icon-wrap.fish-level {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+.device-icon-wrap.fish-aerator {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+}
+
+.device-icon-wrap.fish-feeder {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+}
+
+.device-icon-wrap.fish-heater {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+}
+
+.device-icon-wrap.fish-valve {
+  background: rgba(45, 212, 191, 0.15);
+  color: #2dd4bf;
 }
 
 /* Active glow for ON devices */
@@ -693,6 +861,84 @@ body {
 
 .device-card.is-on .device-icon-wrap.sensor {
   box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.camera {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.sensor-temp {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.sensor-humidity {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.switch {
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.valve {
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.motor {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+/* Solar PV glow */
+.device-card.is-on .device-icon-wrap.pv-voltage,
+.device-card.is-on .device-icon-wrap.pv-current,
+.device-card.is-on .device-icon-wrap.pv-power {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.battery,
+.device-card.is-on .device-icon-wrap.battery-soc {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.inverter {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Hydroponics glow */
+.device-card.is-on .device-icon-wrap.hydro-ph {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.hydro-ec {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.hydro-light {
+  box-shadow: 0 0 20px rgba(132, 204, 22, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.hydro-pump {
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+}
+
+/* Fishery glow */
+.device-card.is-on .device-icon-wrap.fish-do {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.fish-aerator {
+  box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.fish-feeder {
+  box-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.fish-heater {
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
+}
+
+.device-card.is-on .device-icon-wrap.fish-valve {
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
 }
 
 .device-card-info h3 {
@@ -711,14 +957,15 @@ body {
 /* --- Toggle Switch --- */
 .toggle-switch {
   position: relative;
-  width: 52px;
-  height: 28px;
-  border-radius: 14px;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   padding: 0;
   flex-shrink: 0;
+  outline: none;
 }
 
 .toggle-switch.off {
@@ -727,30 +974,33 @@ body {
 
 .toggle-switch.on {
   background: var(--status-on);
-  box-shadow: 0 0 16px var(--status-on-glow);
+  box-shadow: 0 0 12px var(--status-on-glow);
 }
 
 .toggle-knob {
   position: absolute;
-  top: 3px;
-  width: 22px;
-  height: 22px;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.2s ease;
+  pointer-events: none;
 }
 
 .toggle-switch.off .toggle-knob {
-  transform: translateX(3px);
+  transform: translateX(0);
 }
 
 .toggle-switch.on .toggle-knob {
-  transform: translateX(27px);
+  transform: translateX(20px);
 }
 
 .toggle-switch:active .toggle-knob {
-  width: 26px;
+  width: 24px;
 }
 
 /* Status dot */
@@ -803,6 +1053,27 @@ body {
   color: var(--text-muted);
 }
 
+/* Sensor value badge */
+.device-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.device-value.temp {
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+}
+
+.device-value.humidity {
+  background: rgba(6, 182, 212, 0.12);
+  color: #06b6d4;
+}
+
 /* --- Card stagger animation --- */
 @keyframes cardIn {
   to {
@@ -823,6 +1094,7 @@ body {
 .device-card:nth-child(10) { animation-delay: 540ms; }
 .device-card:nth-child(11) { animation-delay: 600ms; }
 .device-card:nth-child(12) { animation-delay: 660ms; }
+.device-card:nth-child(n+13) { animation-delay: 700ms; }
 
 /* --- Connection Status Badge --- */
 .connection-badge {

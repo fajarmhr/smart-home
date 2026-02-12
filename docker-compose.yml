@@ -7,13 +7,32 @@ services:
     volumes:
       - ./app:/app
     depends_on:
+      db:
+        condition: service_healthy
       redis:
         condition: service_healthy
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-dev-only-change-in-production}
       - DJANGO_DEBUG=${DJANGO_DEBUG:-True}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,0.0.0.0}
-    command: python manage.py runserver 0.0.0.0:8000
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost:8000,http://127.0.0.1:8000}
+      - DATABASE_URL=postgres://smarthome:smarthome@db:5432/smarthome
+    restart: unless-stopped
+
+  db:
+    image: timescale/timescaledb:latest-pg16
+    container_name: smart-home-db
+    environment:
+      - POSTGRES_USER=smarthome
+      - POSTGRES_PASSWORD=smarthome
+      - POSTGRES_DB=smarthome
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smarthome"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
   redis:
@@ -25,3 +44,119 @@ services:
       timeout: 3s
       retries: 3
     restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: smart-home-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ===== Sensor Simulators =====
+  # Each container simulates one device type.
+  # Set SIMULATOR_ENABLED=false to pause without removing.
+
+  sensor-light:
+    build: ./sensors
+    container_name: smart-home-sensor-light
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=light
+      - INTERVAL_MIN=15
+      - INTERVAL_MAX=45
+      - SIMULATOR_ENABLED=${SENSOR_LIGHT_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-camera:
+    build: ./sensors
+    container_name: smart-home-sensor-camera
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=camera
+      - INTERVAL_MIN=30
+      - INTERVAL_MAX=90
+      - SIMULATOR_ENABLED=${SENSOR_CAMERA_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-temp:
+    build: ./sensors
+    container_name: smart-home-sensor-temp
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=sensor_temp
+      - INTERVAL_MIN=10
+      - INTERVAL_MAX=30
+      - SIMULATOR_ENABLED=${SENSOR_TEMP_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-humidity:
+    build: ./sensors
+    container_name: smart-home-sensor-humidity
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=sensor_humidity
+      - INTERVAL_MIN=10
+      - INTERVAL_MAX=30
+      - SIMULATOR_ENABLED=${SENSOR_HUMIDITY_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-switch:
+    build: ./sensors
+    container_name: smart-home-sensor-switch
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=switch
+      - INTERVAL_MIN=20
+      - INTERVAL_MAX=60
+      - SIMULATOR_ENABLED=${SENSOR_SWITCH_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-valve:
+    build: ./sensors
+    container_name: smart-home-sensor-valve
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=valve
+      - INTERVAL_MIN=30
+      - INTERVAL_MAX=120
+      - SIMULATOR_ENABLED=${SENSOR_VALVE_ENABLED:-false}
+    restart: unless-stopped
+
+  sensor-motor:
+    build: ./sensors
+    container_name: smart-home-sensor-motor
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - SENSOR_TYPE=motor
+      - INTERVAL_MIN=30
+      - INTERVAL_MAX=120
+      - SIMULATOR_ENABLED=${SENSOR_MOTOR_ENABLED:-false}
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  grafana_data:

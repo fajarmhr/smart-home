@@ -1,0 +1,235 @@
+{
+  "rooms": [
+    {
+      "name": "Front Yard",
+      "icon": "🏡",
+      "category": "home",
+      "devices": [
+        { "name": "Garden Light 1", "type": "light", "is_controllable": true },
+        { "name": "Garden Light 2", "type": "light", "is_controllable": true },
+        { "name": "Garage Light", "type": "light", "is_controllable": true },
+        { "name": "Front CCTV", "type": "camera", "is_controllable": true },
+        { "name": "Auto Sprinkler", "type": "valve", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Living Room",
+      "icon": "🛋️",
+      "category": "home",
+      "devices": [
+        { "name": "Living Room Light", "type": "light", "is_controllable": true },
+        { "name": "Living Room AC", "type": "ac", "is_controllable": true },
+        { "name": "Living Room CCTV", "type": "camera", "is_controllable": true },
+        { "name": "Temperature Sensor", "type": "sensor_temp", "unit": "°C", "min_value": 18, "max_value": 32 },
+        { "name": "Humidity Sensor", "type": "sensor_humidity", "unit": "%", "min_value": 40, "max_value": 80 }
+      ]
+    },
+    {
+      "name": "Kitchen",
+      "icon": "🍳",
+      "category": "home",
+      "devices": [
+        { "name": "Kitchen Light", "type": "light", "is_controllable": true },
+        { "name": "Exhaust Fan", "type": "switch", "is_controllable": true },
+        { "name": "Temperature Sensor", "type": "sensor_temp", "unit": "°C" },
+        { "name": "Humidity Sensor", "type": "sensor_humidity", "unit": "%" }
+      ]
+    },
+    {
+      "name": "Bedroom 1",
+      "icon": "🛏️",
+      "category": "home",
+      "devices": [
+        { "name": "Main Light", "type": "light", "is_controllable": true },
+        { "name": "AC", "type": "ac", "is_controllable": true },
+        { "name": "Temperature Sensor", "type": "sensor_temp", "unit": "°C", "min_value": 20, "max_value": 28 },
+        { "name": "Humidity Sensor", "type": "sensor_humidity", "unit": "%", "min_value": 40, "max_value": 70 }
+      ]
+    },
+    {
+      "name": "Bedroom 2",
+      "icon": "🛏️",
+      "category": "home",
+      "devices": [
+        { "name": "Main Light", "type": "light", "is_controllable": true },
+        { "name": "AC", "type": "ac", "is_controllable": true },
+        { "name": "Temperature Sensor", "type": "sensor_temp", "unit": "°C" },
+        { "name": "Humidity Sensor", "type": "sensor_humidity", "unit": "%" }
+      ]
+    },
+    {
+      "name": "Backyard",
+      "icon": "🌿",
+      "category": "home",
+      "devices": [
+        { "name": "Backyard Light 1", "type": "light", "is_controllable": true },
+        { "name": "Backyard Light 2", "type": "light", "is_controllable": true },
+        { "name": "Backyard CCTV", "type": "camera", "is_controllable": true }
+      ]
+    },
+
+    {
+      "name": "Solar Panel Array",
+      "icon": "☀️",
+      "category": "pv",
+      "devices": [
+        { "name": "Panel 1 Voltage", "type": "pv_voltage", "unit": "V", "min_value": 18, "max_value": 45 },
+        { "name": "Panel 1 Current", "type": "pv_current", "unit": "A", "min_value": 0, "max_value": 10 },
+        { "name": "Panel 1 Power", "type": "pv_power", "unit": "W" },
+        { "name": "Panel 1 Temperature", "type": "pv_panel_temp", "unit": "°C", "min_value": 0, "max_value": 70 },
+        { "name": "Panel 2 Voltage", "type": "pv_voltage", "unit": "V", "min_value": 18, "max_value": 45 },
+        { "name": "Panel 2 Current", "type": "pv_current", "unit": "A", "min_value": 0, "max_value": 10 },
+        { "name": "Panel 2 Power", "type": "pv_power", "unit": "W" },
+        { "name": "Panel 2 Temperature", "type": "pv_panel_temp", "unit": "°C", "min_value": 0, "max_value": 70 },
+        { "name": "Total PV Power", "type": "pv_power", "unit": "W" },
+        { "name": "Daily Energy", "type": "pv_energy", "unit": "kWh" },
+        { "name": "Total Energy", "type": "pv_energy", "unit": "kWh" }
+      ]
+    },
+    {
+      "name": "Battery Bank",
+      "icon": "🔋",
+      "category": "pv",
+      "devices": [
+        { "name": "Battery Voltage", "type": "battery_voltage", "unit": "V", "min_value": 22, "max_value": 29 },
+        { "name": "Battery Current", "type": "battery_current", "unit": "A" },
+        { "name": "Battery SoC", "type": "battery_soc", "unit": "%", "min_value": 20, "max_value": 100 },
+        { "name": "Battery Temperature", "type": "sensor_temp", "unit": "°C", "min_value": 10, "max_value": 45 }
+      ]
+    },
+    {
+      "name": "Inverter & Grid",
+      "icon": "⚡",
+      "category": "pv",
+      "devices": [
+        { "name": "Inverter", "type": "inverter", "is_controllable": true },
+        { "name": "Inverter Output", "type": "pv_power", "unit": "W" },
+        { "name": "Grid Import", "type": "grid_power", "unit": "W" },
+        { "name": "Grid Export", "type": "grid_power", "unit": "W" },
+        { "name": "Load Power", "type": "pv_power", "unit": "W" }
+      ]
+    },
+
+    {
+      "name": "NFT System A",
+      "icon": "🥬",
+      "category": "hydro",
+      "devices": [
+        { "name": "pH Sensor", "type": "hydro_ph", "unit": "pH", "min_value": 5.5, "max_value": 6.5 },
+        { "name": "EC Sensor", "type": "hydro_ec", "unit": "mS/cm", "min_value": 1.0, "max_value": 2.5 },
+        { "name": "TDS Sensor", "type": "hydro_tds", "unit": "ppm", "min_value": 500, "max_value": 1500 },
+        { "name": "Water Temperature", "type": "hydro_water_temp", "unit": "°C", "min_value": 18, "max_value": 26 },
+        { "name": "Water Level", "type": "hydro_water_level", "unit": "%", "min_value": 30, "max_value": 100 },
+        { "name": "Flow Rate", "type": "hydro_flow", "unit": "L/min" },
+        { "name": "Main Pump", "type": "hydro_main_pump", "is_controllable": true },
+        { "name": "Nutrient Pump A", "type": "hydro_nutrient_pump", "is_controllable": true },
+        { "name": "Nutrient Pump B", "type": "hydro_nutrient_pump", "is_controllable": true },
+        { "name": "pH Up Pump", "type": "hydro_ph_up_pump", "is_controllable": true },
+        { "name": "pH Down Pump", "type": "hydro_ph_down_pump", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "NFT System B",
+      "icon": "🥗",
+      "category": "hydro",
+      "devices": [
+        { "name": "pH Sensor", "type": "hydro_ph", "unit": "pH", "min_value": 5.5, "max_value": 6.5 },
+        { "name": "EC Sensor", "type": "hydro_ec", "unit": "mS/cm", "min_value": 1.0, "max_value": 2.5 },
+        { "name": "TDS Sensor", "type": "hydro_tds", "unit": "ppm", "min_value": 500, "max_value": 1500 },
+        { "name": "Water Temperature", "type": "hydro_water_temp", "unit": "°C", "min_value": 18, "max_value": 26 },
+        { "name": "Water Level", "type": "hydro_water_level", "unit": "%", "min_value": 30, "max_value": 100 },
+        { "name": "Main Pump", "type": "hydro_main_pump", "is_controllable": true },
+        { "name": "Nutrient Pump A", "type": "hydro_nutrient_pump", "is_controllable": true },
+        { "name": "Nutrient Pump B", "type": "hydro_nutrient_pump", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Grow Room",
+      "icon": "💡",
+      "category": "hydro",
+      "devices": [
+        { "name": "Air Temperature", "type": "hydro_air_temp", "unit": "°C", "min_value": 20, "max_value": 30 },
+        { "name": "Air Humidity", "type": "hydro_air_humidity", "unit": "%", "min_value": 50, "max_value": 80 },
+        { "name": "Grow Light Zone 1", "type": "hydro_light", "is_controllable": true },
+        { "name": "Grow Light Zone 2", "type": "hydro_light", "is_controllable": true },
+        { "name": "Exhaust Fan", "type": "switch", "is_controllable": true },
+        { "name": "Circulation Fan", "type": "switch", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Nutrient Tank",
+      "icon": "🧪",
+      "category": "hydro",
+      "devices": [
+        { "name": "Tank A Level", "type": "hydro_water_level", "unit": "%", "min_value": 20, "max_value": 100 },
+        { "name": "Tank B Level", "type": "hydro_water_level", "unit": "%", "min_value": 20, "max_value": 100 },
+        { "name": "pH Up Level", "type": "hydro_water_level", "unit": "%", "min_value": 20, "max_value": 100 },
+        { "name": "pH Down Level", "type": "hydro_water_level", "unit": "%", "min_value": 20, "max_value": 100 },
+        { "name": "Fresh Water Level", "type": "hydro_water_level", "unit": "%", "min_value": 30, "max_value": 100 }
+      ]
+    },
+
+    {
+      "name": "Gurame Pond 1",
+      "icon": "🐟",
+      "category": "fish",
+      "devices": [
+        { "name": "Water Temperature", "type": "fish_water_temp", "unit": "°C", "min_value": 25, "max_value": 30 },
+        { "name": "pH Sensor", "type": "fish_ph", "unit": "pH", "min_value": 6.5, "max_value": 8.0 },
+        { "name": "Dissolved Oxygen", "type": "fish_do", "unit": "mg/L", "min_value": 4.0, "max_value": 10.0 },
+        { "name": "Ammonia (NH3)", "type": "fish_ammonia", "unit": "mg/L", "min_value": 0, "max_value": 0.02 },
+        { "name": "Nitrite (NO2)", "type": "fish_nitrite", "unit": "mg/L", "min_value": 0, "max_value": 0.5 },
+        { "name": "Water Level", "type": "fish_water_level", "unit": "%", "min_value": 70, "max_value": 100 },
+        { "name": "Turbidity", "type": "fish_turbidity", "unit": "NTU", "min_value": 0, "max_value": 50 },
+        { "name": "Aerator 1", "type": "fish_aerator", "is_controllable": true },
+        { "name": "Aerator 2", "type": "fish_aerator", "is_controllable": true },
+        { "name": "Auto Feeder", "type": "fish_feeder", "is_controllable": true },
+        { "name": "Heater", "type": "fish_heater", "is_controllable": true },
+        { "name": "Drain Valve", "type": "fish_drain_valve", "is_controllable": true },
+        { "name": "Inlet Valve", "type": "fish_inlet_valve", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Gurame Pond 2",
+      "icon": "🐟",
+      "category": "fish",
+      "devices": [
+        { "name": "Water Temperature", "type": "fish_water_temp", "unit": "°C", "min_value": 25, "max_value": 30 },
+        { "name": "pH Sensor", "type": "fish_ph", "unit": "pH", "min_value": 6.5, "max_value": 8.0 },
+        { "name": "Dissolved Oxygen", "type": "fish_do", "unit": "mg/L", "min_value": 4.0, "max_value": 10.0 },
+        { "name": "Ammonia (NH3)", "type": "fish_ammonia", "unit": "mg/L", "min_value": 0, "max_value": 0.02 },
+        { "name": "Water Level", "type": "fish_water_level", "unit": "%", "min_value": 70, "max_value": 100 },
+        { "name": "Aerator 1", "type": "fish_aerator", "is_controllable": true },
+        { "name": "Aerator 2", "type": "fish_aerator", "is_controllable": true },
+        { "name": "Auto Feeder", "type": "fish_feeder", "is_controllable": true },
+        { "name": "Drain Valve", "type": "fish_drain_valve", "is_controllable": true },
+        { "name": "Inlet Valve", "type": "fish_inlet_valve", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Nursery Pond",
+      "icon": "🐡",
+      "category": "fish",
+      "devices": [
+        { "name": "Water Temperature", "type": "fish_water_temp", "unit": "°C", "min_value": 26, "max_value": 29 },
+        { "name": "pH Sensor", "type": "fish_ph", "unit": "pH", "min_value": 6.5, "max_value": 7.5 },
+        { "name": "Dissolved Oxygen", "type": "fish_do", "unit": "mg/L", "min_value": 5.0, "max_value": 10.0 },
+        { "name": "Water Level", "type": "fish_water_level", "unit": "%", "min_value": 80, "max_value": 100 },
+        { "name": "Aerator", "type": "fish_aerator", "is_controllable": true },
+        { "name": "Heater", "type": "fish_heater", "is_controllable": true },
+        { "name": "Auto Feeder", "type": "fish_feeder", "is_controllable": true }
+      ]
+    },
+    {
+      "name": "Water Treatment",
+      "icon": "💧",
+      "category": "fish",
+      "devices": [
+        { "name": "Biofilter Pump", "type": "hydro_main_pump", "is_controllable": true },
+        { "name": "UV Sterilizer", "type": "switch", "is_controllable": true },
+        { "name": "Settling Tank Level", "type": "fish_water_level", "unit": "%" },
+        { "name": "Clean Water Tank Level", "type": "fish_water_level", "unit": "%", "min_value": 30, "max_value": 100 }
+      ]
+    }
+  ]
+}
