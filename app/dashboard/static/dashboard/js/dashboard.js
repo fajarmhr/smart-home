@@ -7,6 +7,7 @@ let devices = [];
 let wsConnected = false;
 let activeRoomFilter = null;
 let activeCategoryFilter = window.currentCategory || "all";
+let collapsedSections = {}; // Track collapsed state per section
 
 // --- Lucide Icon SVGs ---
 const ICONS = {
@@ -341,13 +342,27 @@ function render() {
 
   container.innerHTML = Object.entries(groups)
     .map(
-      ([group, items]) => `
-      <div>
-        <div class="section-title">${formatGroupName(group)}</div>
-        <div class="devices-grid">
-          ${items.map(renderCard).join("")}
+      ([group, items]) => {
+        const sectionId = `section-${group.replace(/\s+/g, '-').toLowerCase()}`;
+        const isCollapsed = collapsedSections[sectionId] || false;
+        return `
+      <div class="collapsible-section ${isCollapsed ? 'collapsed' : ''}" data-section="${sectionId}">
+        <div class="section-header" onclick="toggleSection('${sectionId}')">
+          <div class="section-title">${formatGroupName(group)}</div>
+          <div class="section-meta">
+            <span class="section-count">${items.length} devices</span>
+            <span class="section-chevron">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </div>
         </div>
-      </div>`
+        <div class="section-content">
+          <div class="devices-grid">
+            ${items.map(renderCard).join("")}
+          </div>
+        </div>
+      </div>`;
+      }
     )
     .join("");
 }
@@ -524,6 +539,32 @@ function connectWebSocket() {
     console.error("WebSocket error:", err);
     socket.close();
   };
+}
+
+// --- Toggle Section Collapse ---
+function toggleSection(sectionId) {
+  collapsedSections[sectionId] = !collapsedSections[sectionId];
+  const section = document.querySelector(`[data-section="${sectionId}"]`);
+  if (section) {
+    section.classList.toggle('collapsed', collapsedSections[sectionId]);
+  }
+}
+
+// --- Collapse/Expand All ---
+function collapseAll() {
+  document.querySelectorAll('.collapsible-section').forEach(section => {
+    const sectionId = section.dataset.section;
+    collapsedSections[sectionId] = true;
+    section.classList.add('collapsed');
+  });
+}
+
+function expandAll() {
+  document.querySelectorAll('.collapsible-section').forEach(section => {
+    const sectionId = section.dataset.section;
+    collapsedSections[sectionId] = false;
+    section.classList.remove('collapsed');
+  });
 }
 
 // --- Logout ---

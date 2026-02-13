@@ -286,16 +286,16 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "line+area" }
           },
@@ -312,12 +312,25 @@
           },
           "unit": "pH"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "NFT System A" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "purple", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "NFT System B" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 5 },
       "id": 7,
       "options": {
-        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -326,7 +339,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_ph'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_ph'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
           "refId": "A"
         }
       ],
@@ -346,16 +359,16 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "line+area" }
           },
@@ -372,12 +385,25 @@
           },
           "unit": "mS/cm"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "NFT System A" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "pink", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "NFT System B" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "blue", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 5 },
       "id": 8,
       "options": {
-        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -386,7 +412,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_ec'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_ec'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
           "refId": "A"
         }
       ],
@@ -406,16 +432,16 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "line+area" }
           },
@@ -430,12 +456,25 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "NFT System A" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "NFT System B" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 13 },
       "id": 9,
       "options": {
-        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "min", "max"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -444,7 +483,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_water_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  r.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nJOIN dashboard_room r ON d.room_id = r.id\nWHERE d.type = 'hydro_water_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, r.name\nORDER BY time",
           "refId": "A"
         }
       ],

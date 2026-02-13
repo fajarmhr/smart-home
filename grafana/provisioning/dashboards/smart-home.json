@@ -25,8 +25,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -34,19 +34,19 @@
             },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
-            "spanNulls": false,
+            "showPoints": "never",
+            "spanNulls": 3600000,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -69,7 +69,26 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Living.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Bedroom.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "blue", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Kitchen.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -82,12 +101,12 @@
         "legend": {
           "calcs": ["mean", "max", "min"],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "targets": [
@@ -99,7 +118,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'sensor_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'sensor_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
           "refId": "A",
           "sql": {
             "columns": [
@@ -141,8 +160,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -150,19 +169,19 @@
             },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
-            "spanNulls": false,
+            "showPoints": "never",
+            "spanNulls": 3600000,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -187,7 +206,26 @@
           },
           "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Living.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "cyan", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Bedroom.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "purple", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byRegexp", "options": ".*Kitchen.*" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -200,12 +238,12 @@
         "legend": {
           "calcs": ["mean", "max", "min"],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "targets": [
@@ -217,7 +255,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'sensor_humidity'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'sensor_humidity'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
           "refId": "A",
           "sql": {
             "columns": [

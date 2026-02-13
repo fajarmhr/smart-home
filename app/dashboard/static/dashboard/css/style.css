@@ -567,16 +567,79 @@ body {
   box-shadow: 0 2px 8px var(--accent-glow);
 }
 
+.group-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.collapse-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+}
+
+.collapse-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--border-card-hover);
+  color: var(--accent);
+}
+
+.collapse-btn:active {
+  transform: scale(0.95);
+}
+
+.collapse-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- Collapsible Section --- */
+.collapsible-section {
+  margin-bottom: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.section-header:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-card-hover);
+  box-shadow: var(--shadow-card);
+}
+
+.section-header:active {
+  transform: scale(0.995);
+}
+
 /* --- Section Title --- */
 .section-title {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-top: 24px;
-  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 0;
 }
 
 .section-title::before {
@@ -585,6 +648,62 @@ body {
   height: 18px;
   background: var(--accent);
   border-radius: 4px;
+}
+
+.section-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--accent-glow);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.section-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-glow);
+  color: var(--accent);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-chevron svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Collapsed state */
+.collapsible-section.collapsed .section-chevron {
+  transform: rotate(-90deg);
+}
+
+.collapsible-section.collapsed .section-content {
+  display: none;
+}
+
+.section-content {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Device Cards Grid --- */

@@ -184,16 +184,16 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "off" }
           },
@@ -204,12 +204,33 @@
           },
           "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Total PV Power" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } },
+              { "id": "custom.lineWidth", "value": 2 },
+              { "id": "custom.fillOpacity", "value": 15 }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "Panel 1 Power" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "blue", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "Panel 2 Power" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
       "id": 5,
       "options": {
-        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "desc" }
       },
       "targets": [
@@ -218,7 +239,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'pv_power'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'pv_power'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
           "refId": "A"
         }
       ],
@@ -238,8 +259,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
@@ -247,7 +268,7 @@
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "line+area" }
           },
@@ -264,12 +285,19 @@
           },
           "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Battery SoC" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
       "id": 6,
       "options": {
-        "legend": { "calcs": ["mean", "min"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "min"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -278,7 +306,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  'Battery SoC' AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'battery_soc'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  'Battery SoC' AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'battery_soc'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time\nORDER BY time",
           "refId": "A"
         }
       ],
@@ -298,16 +326,16 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "fillOpacity": 8,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "line" }
           },
@@ -322,12 +350,25 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Panel 1 Temp" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "Panel 2 Temp" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }
+            ]
+          }
+        ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
       "id": 7,
       "options": {
-        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -336,7 +377,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'pv_panel_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'pv_panel_temp'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
           "refId": "A"
         }
       ],
@@ -356,8 +397,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "scheme",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
             "hideFrom": { "legend": false, "tooltip": false, "viz": false },
             "insertNulls": false,
             "lineInterpolation": "smooth",
@@ -365,7 +406,7 @@
             "pointSize": 5,
             "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
+            "spanNulls": 3600000,
             "stacking": { "group": "A", "mode": "none" },
             "thresholdsStyle": { "mode": "off" }
           },
@@ -379,18 +420,24 @@
         "overrides": [
           {
             "matcher": { "id": "byName", "options": "Grid Import" },
-            "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }]
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } },
+              { "id": "custom.fillOpacity", "value": 20 }
+            ]
           },
           {
             "matcher": { "id": "byName", "options": "Grid Export" },
-            "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }]
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } },
+              { "id": "custom.fillOpacity", "value": 20 }
+            ]
           }
         ]
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
       "id": 8,
       "options": {
-        "legend": { "calcs": ["mean", "sum"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "legend": { "calcs": ["mean", "sum"], "displayMode": "table", "placement": "right", "showLegend": true },
         "tooltip": { "mode": "multi", "sort": "none" }
       },
       "targets": [
@@ -399,7 +446,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time_bucket('5 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'grid_power'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
+          "rawSql": "SELECT\n  time_bucket('15 minutes', sr.timestamp) AS time,\n  d.name AS metric,\n  AVG(sr.value) AS value\nFROM dashboard_sensorreading sr\nJOIN dashboard_device d ON sr.device_id = d.id\nWHERE d.type = 'grid_power'\n  AND sr.timestamp >= $__timeFrom()\n  AND sr.timestamp <= $__timeTo()\nGROUP BY time, d.name\nORDER BY time",
           "refId": "A"
         }
       ],
